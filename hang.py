@@ -1,7 +1,10 @@
 import random
 import string
 
-WORDLIST_FILENAME = "palavras.txt"
+WORDLIST_FILENAME = "words.txt"
+
+def getRandomElement(wordlist):
+    return random.choice(wordlist)
 
 def loadWords():
     """
@@ -9,14 +12,19 @@ def loadWords():
     take a while to finish.
     """
     print "Loading word list from file..."
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r', 0)
-    # line: string
-    line = inFile.readline()
-    # wordlist: list of strings
+
+    noBuffering = 0;
+    readMode = 'r';
+    inputFile = open(WORDLIST_FILENAME, readMode, noBuffering)
+
+    line = inputFile.readline()
     wordlist = string.split(line)
+
     print "  ", len(wordlist), "words loaded."
-    return random.choice(wordlist)
+
+    selectedWord = getRandomElement(wordlist)
+
+    return selectedWord
 
 
 def isWordGuessed(secretWord, lettersGuessed):
