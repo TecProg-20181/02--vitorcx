@@ -22,9 +22,7 @@ def loadWords():
 
     print "  ", len(wordlist), "words loaded."
 
-    selectedWord = getRandomElement(wordlist)
-
-    return selectedWord
+    return wordlist
 
 
 def isWordGuessed(secretWord, lettersGuessed):
@@ -44,20 +42,12 @@ def isWordGuessed(secretWord, lettersGuessed):
 
     return True
 
-def getGuessedWord():
-
-     guessed = ''
-
-     return guessed
-
 def getAvailableLetters():
     # 'abcdefghijklmnopqrstuvwxyz'
     available = string.ascii_lowercase
     return available
 
 def popLetterFromString(availableLetters, lettersGuessed):
-    print availableLetters
-    print lettersGuessed
     for letter in availableLetters:
         if letter in lettersGuessed:
             availableLetters = availableLetters.replace(letter, '')
@@ -81,7 +71,7 @@ def hangman(secretWord):
         letter = raw_input('Please guess a letter: ')
         if letter in lettersGuessed:
 
-            guessed = getGuessedWord()
+            guessed = ''
             for letter in secretWord:
                 if letter in lettersGuessed:
                     guessed += letter
@@ -92,7 +82,7 @@ def hangman(secretWord):
         elif letter in secretWord:
             lettersGuessed.append(letter)
 
-            guessed = getGuessedWord()
+            guessed = ''
             for letter in secretWord:
                 if letter in lettersGuessed:
                     guessed += letter
@@ -104,7 +94,7 @@ def hangman(secretWord):
             guesses -=1
             lettersGuessed.append(letter)
 
-            guessed = getGuessedWord()
+            guessed = ''
             for letter in secretWord:
                 if letter in lettersGuessed:
                     guessed += letter
@@ -122,6 +112,6 @@ def hangman(secretWord):
 
 
 
-
-secretWord = loadWords().lower()
+wordlist = loadWords()
+secretWord = getRandomElement(wordlist).lower()
 hangman(secretWord)
