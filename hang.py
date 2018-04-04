@@ -26,20 +26,11 @@ def loadWords():
 
 
 def isWordGuessed(secretWord, lettersGuessed):
-    secretLetters = []
-
-#    for letter in secretWord:
-#        if letter in secretLetters:
-#            secretLetters.append(letter)
-#        else:
-#            pass
-
     for letter in secretWord:
         if letter in lettersGuessed:
             pass
         else:
             return False
-
     return True
 
 def getAvailableLetters():
@@ -52,6 +43,15 @@ def popLetterFromString(availableLetters, lettersGuessed):
         if letter in lettersGuessed:
             availableLetters = availableLetters.replace(letter, '')
     return availableLetters
+
+def updateGuessedWord(letter, lettersGuessed, secretWord):
+    guessed = ''
+    for letter in secretWord:
+        if letter in lettersGuessed:
+            guessed += letter
+        else:
+            guessed += '_ '
+    return guessed
 
 def hangman(secretWord):
 
@@ -69,38 +69,18 @@ def hangman(secretWord):
 
         print 'Available letters', available
         letter = raw_input('Please guess a letter: ')
+
         if letter in lettersGuessed:
-
-            guessed = ''
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
-
+            guessed = updateGuessedWord(letter, lettersGuessed, secretWord)
             print 'Oops! You have already guessed that letter: ', guessed
         elif letter in secretWord:
             lettersGuessed.append(letter)
-
-            guessed = ''
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
-
+            guessed = updateGuessedWord(letter, lettersGuessed, secretWord)
             print 'Good Guess: ', guessed
         else:
             guesses -=1
             lettersGuessed.append(letter)
-
-            guessed = ''
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
-
+            guessed = updateGuessedWord(letter, lettersGuessed, secretWord)
             print 'Oops! That letter is not in my word: ',  guessed
         print '------------'
 
