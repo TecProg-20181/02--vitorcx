@@ -48,16 +48,20 @@ def getGuessedWord():
 
      guessed = ''
 
-
      return guessed
 
 def getAvailableLetters():
-    import string
     # 'abcdefghijklmnopqrstuvwxyz'
     available = string.ascii_lowercase
-
-
     return available
+
+def popLetterFromString(availableLetters, lettersGuessed):
+    print availableLetters
+    print lettersGuessed
+    for letter in availableLetters:
+        if letter in lettersGuessed:
+            availableLetters = availableLetters.replace(letter, '')
+    return availableLetters
 
 def hangman(secretWord):
 
@@ -71,9 +75,7 @@ def hangman(secretWord):
         print 'You have ', guesses, 'guesses left.'
 
         available = getAvailableLetters()
-        for letter in available:
-            if letter in lettersGuessed:
-                available = available.replace(letter, '')
+        available = popLetterFromString(available, lettersGuessed)
 
         print 'Available letters', available
         letter = raw_input('Please guess a letter: ')
